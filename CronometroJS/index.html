@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Cronômetro</title>
+		<link rel="stylesheet" href="style.css">
+		<link rel = "stylesheet" href = "tamanho_celular.css" media = "screen and (max-width:600px )"/>
+	</head>
+
+	<body>
+		<div class="container">
+			<h1><i>Cronômetro utilizando JavaScript</i></h1>
+			<div id="tempo">
+				<span class="numero" id="hor">00</span>
+				<span class="val">Hor</span>
+				
+				<span class="numero" id="min">00</span>
+				<span class="val">Min</span>
+				
+				<span class="numero" id="seg">00</span>
+				<span class="val">Seg</span>
+				
+				<span class="numero" id="contador">00</span>
+			</div>
+			<div id="botoes">
+				<button class="btn" id="iniciar" onclick="this.disabled = true">Iniciar</button>
+				<button class="btn" id="parar">Parar</button>
+				<button class="btn" id="resetar">Resetar</button>
+			</div>
+		</div>
+	</body>
+	<script src="script.js"></script>
+</html>
