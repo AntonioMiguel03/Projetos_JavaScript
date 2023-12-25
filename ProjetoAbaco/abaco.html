@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+    }
+
+    #controls {
+	  display: flex;
+	  flex-direction: row;
+	  align-items: center;
+	  text-align: center;
+	  margin-bottom: 20px;
+	}
+
+	label, select, button {
+	  margin: 5px;
+	}
+	
+	#controlsA {
+		margin-left: -85px;
+	}
+
+
+    #abacus {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .rod {
+      position: relative;
+      width: 1200px;
+      height: 20px;
+      margin: 15px 0;
+      display: flex;
+      background-color: #8B4513;
+    }
+
+    .bead {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin: 0 5px;
+      cursor: pointer;
+      position: relative;
+      left: 0;
+      top: 50%;
+      transform: translate(0, -50%);
+      transition: left 0.3s ease;
+    }
+
+    .custom-value {
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translate(0, -50%);
+      color: black;
+      font-size: 18px;
+    }
+
+    .number-container {
+      display: flex;
+      position: absolute;
+      bottom: -40px;
+      left: 0;
+      color: black;
+      font-size: 18px;
+    }
+
+    .number {
+      margin: 0 55px;
+    }
+
+    .rod:nth-child(10n+1) .bead {
+      background-color: #87CEEB;
+    }
+
+    .rod:nth-child(10n+2) .bead {
+      background-color: #FFD700;
+    }
+
+    .rod:nth-child(10n+3) .bead {
+      background-color: #FF4500;
+    }
+
+    .rod:nth-child(10n+4) .bead {
+      background-color: #32CD32;
+    }
+
+    .rod:nth-child(10n+5) .bead {
+      background-color: #9932CC;
+    }
+
+    .rod:nth-child(10n+6) .bead {
+      background-color: #FF8C00;
+    }
+
+    .rod:nth-child(10n+7) .bead {
+      background-color: #8A2BE2;
+    }
+
+    .rod:nth-child(10n+8) .bead {
+      background-color: #DC143C;
+    }
+
+    .rod:nth-child(10n+9) .bead {
+      background-color: #00BFFF;
+    }
+
+    .rod:nth-child(10n+10) .bead {
+      background-color: #FF1493;
+    }
+  </style>
+</head>
+
+<body>
+
+  <center>
+    <h1>Abaco Digital</h1>
+  </center>
+
+  <div id="controls">
+    <label for="selectRod">Selecione uma haste:</label>
+    <select id="selectRod"></select>
+
+    <button id="moveAllLeft">Mover todas para a esquerda</button>
+    <button id="moveAllRight">Mover todas para a direita</button><br></br>
+  </div>
+  
+  <div id = "controlsA">
+      <label for="selectCount">Selecione a quantidade de contas:</label>
+    <select id="selectCount">
+      <option value="1">1</option>
+      <option value="2">2</option>	  
+	  <option value="3">3</option>
+	  <option value="4">4</option>
+	  <option value="5">5</option>
+	  <option value="6">6</option>
+	  <option value="7">7</option>
+	  <option value="8">8</option>
+	  <option value="9">9</option>
+	  <option value="10">10</option>
+    </select>
+
+    <button id="moveSelectedLeft">Mover contas para a esquerda</button>
+    <button id="moveSelectedRight">Mover contas para a direita</button>
+  </div></br>
+  
+  <div id = "controls">
+	<button id="moveAllBeadsToLeft">Mover todas para a esquerda</button>
+	<button id="moveAllBeadsToRight">Mover todas para a direita</button>
+  </div>
+
+  <div id="abacus"></div>
+
+  <script>
+    function createAbacus(numRods, numBeads, customValues) {
+      const abacus = document.getElementById('abacus');
+
+      for (let i = 0; i < numRods; i++) {
+        const rod = document.createElement('div');
+        rod.className = 'rod';
+
+        for (let j = 0; j < numBeads; j++) {
+          const bead = document.createElement('div');
+          bead.className = 'bead';
+          bead.addEventListener('click', moveBeadToOpposite);
+          rod.appendChild(bead);
+        }
+
+        const customValue = document.createElement('div');
+        customValue.className = 'custom-value';
+        customValue.textContent = customValues[i];
+        rod.appendChild(customValue);
+
+        abacus.appendChild(rod);
+      }
+
+      const lastRod = abacus.lastChild;
+      const numberContainer = document.createElement('div');
+      numberContainer.className = 'number-container';
+      for (let k = 10; k >= 1; k--) {
+        const number = document.createElement('div');
+        number.className = 'number';
+        number.textContent = k;
+        number.addEventListener('click', moveNumberToOpposite);
+        numberContainer.appendChild(number);
+      }
+      lastRod.appendChild(numberContainer);
+    }
+
+    function moveBeadToOpposite(event) {
+      const clickedBead = event.target;
+      const rod = clickedBead.parentElement;
+      const beads = Array.from(rod.querySelectorAll('.bead'));
+      const clickedIndex = beads.indexOf(clickedBead);
+      const beadWidth = clickedBead.offsetWidth;
+      const rodWidth = rod.offsetWidth;
+
+      clickedBead.style.left =
+        parseFloat(clickedBead.style.left) < rodWidth / 2 - beadWidth / 2
+          ? `${rodWidth - beadWidth - 465}px`
+          : '0';
+
+      beads.slice(clickedIndex + 1).forEach((frontBead, index) => {
+        const frontBeadWidth = frontBead.offsetWidth;
+        frontBead.style.left = `${rodWidth - frontBeadWidth - 465}px`;
+      });
+
+      checkForOverlapping(beads);
+    }
+
+    function checkForOverlapping(elements) {
+      for (let i = 0; i < elements.length; i++) {
+        for (let j = i + 1; j < elements.length; j++) {
+          const rect1 = elements[i].getBoundingClientRect();
+          const rect2 = elements[j].getBoundingClientRect();
+
+          if (!(rect1.right < rect2.left || rect1.left > rect2.right)) {
+            const overlapDistance = rect1.right - rect2.left;
+            elements[j].style.left = `${parseFloat(elements[j].style.left) + overlapDistance}px`;
+          }
+        }
+      }
+    }
+
+    function moveNumberToOpposite(event) {
+      const clickedNumber = event.target;
+      const numberContainer = clickedNumber.parentElement;
+      const numbers = Array.from(numberContainer.querySelectorAll('.number'));
+      const clickedIndex = numbers.indexOf(clickedNumber);
+      const oppositeIndex = numbers.length - 1 - clickedIndex;
+      const oppositeNumber = numbers[oppositeIndex];
+      clickedNumber.style.marginLeft = `${oppositeIndex * 110}px`;
+    }
+
+    function populateSelect(numRods) {
+      const selectRod = document.getElementById('selectRod');
+
+      for (let i = 0; i <= numRods - 1; i++) {
+        const option = document.createElement('option');
+        option.value = i + 1;
+        const vals = ['B', 'CMO', 'DMO', 'MO', 'CM', 'DM', 'M', 'C', 'D', 'U'];
+        option.textContent = vals[i];
+        selectRod.appendChild(option);
+      }
+    }
+
+    document.getElementById('moveAllLeft').addEventListener('click', () => moveAllBeads('left'));
+    document.getElementById('moveAllRight').addEventListener('click', () => moveAllBeads('right'));
+    document.getElementById('moveSelectedLeft').addEventListener('click', () => moveSelectedBeads('left'));
+    document.getElementById('moveSelectedRight').addEventListener('click', () => moveSelectedBeads('right'));
+
+    function moveAllBeads(direction) {
+      const selectedRodIndex = document.getElementById('selectRod').value - 1;
+      const rods = document.querySelectorAll('.rod');
+      const beadsToMove = Array.from(rods[selectedRodIndex].querySelectorAll('.bead'));
+
+      beadsToMove.forEach(bead => {
+        bead.style.left = direction === 'left' ? '0' : `${rods[selectedRodIndex].offsetWidth - bead.offsetWidth - 465}px`;
+      });
+
+      checkForOverlapping(beadsToMove);
+    }
+
+function moveSelectedBeads(direction) {
+  const selectedRodIndex = document.getElementById('selectRod').value - 1;
+  const selectedCount = parseInt(document.getElementById('selectCount').value, 10);
+
+  const rods = document.querySelectorAll('.rod');
+  const beadsToMove = Array.from(rods[selectedRodIndex].querySelectorAll('.bead')).slice(-selectedCount);
+
+  beadsToMove.forEach(bead => {
+    bead.style.left = direction === 'left' ? '0' : `${rods[selectedRodIndex].offsetWidth - bead.offsetWidth - 465}px`;
+  });
+
+  checkForOverlapping(beadsToMove);
+}
+
+function checkForOverlappingALL(elements) {
+  const beadWidth = elements[0].offsetWidth;
+
+  for (let i = 0; i < elements.length; i++) {
+    for (let j = i + 1; j < elements.length; j++) {
+      const rect1 = elements[i].getBoundingClientRect();
+      const rect2 = elements[j].getBoundingClientRect();
+
+      if (!(rect1.right < rect2.left || rect1.left > rect2.right)) {
+        const overlapDistance = rect1.right - rect2.left;
+        const correctedOverlap = overlapDistance - beadWidth; // Ajuste para corrigir a sobreposição
+        elements[j].style.left = `${parseFloat(elements[j].style.left) + correctedOverlap}px`;
+      }
+    }
+  }
+}
+
+
+
+
+	// Novas funções para mover todas as contas para a esquerda e para a direita
+    document.getElementById('moveAllBeadsToLeft').addEventListener('click', () => moveAllAbacusBeads('left'));
+    document.getElementById('moveAllBeadsToRight').addEventListener('click', () => moveAllAbacusBeads('right'));
+
+    function moveAllAbacusBeads(direction) {
+      const beadsToMove = Array.from(document.querySelectorAll('.bead'));
+
+      beadsToMove.forEach(bead => {
+        bead.style.left = direction === 'left' ? '0' : `${bead.parentElement.offsetWidth - bead.offsetWidth - 465}px`;
+      });
+
+      checkForOverlappingALL(beadsToMove);
+    }
+
+
+    const customValues = ['B', 'CMO', 'DMO', 'MO', 'CM', 'DM', 'M', 'C', 'D', 'U'];
+    createAbacus(10, 10, customValues);
+    populateSelect(10);
+  </script>
+
+</body>
+
+</html>
