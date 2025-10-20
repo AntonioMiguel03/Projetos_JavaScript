@@ -1,0 +1,107 @@
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2e2e2e;
+  font-family: "Courier New", Courier, monospace;
+}
+
+.watch-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.watch {
+  background-color: #333;
+  width: 90vw;
+  height: 50vh;
+  max-width: 300px;
+  max-height: 500px;
+  border-radius: 20px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 10px solid #ccc; /* Bordas para o relógio */
+  box-shadow: 0 0 35px rgba(0, 0, 0, 0.5); /* Sombreamento para o relógio */
+}
+
+.strap {
+  width: 60px;
+  height: 150px;
+  background-color: #ccc;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  overflow: hidden; /* Certifique-se de que as divisões internas estejam contidas */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Sombreamento para as pulseiras */
+}
+
+.strap-top {
+  top: -150px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.strap-bottom {
+  bottom: -150px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+.strap div {
+  width: 80%;
+  height: 10px;
+  background-color: #bbb;
+  margin: 5px 0;
+  border-radius: 5px;
+}
+
+.screen {
+  background-color: #000;
+  margin: 5% 0% 0% 0%;
+  width: 90%;
+  height: 90%;
+  border-radius: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+  z-index: 1;
+}
+
+pre {
+  margin: 20px 10% 10% 0%;
+  font-size: 1.2em;
+  line-height: 1em;
+  word-wrap: break-word;
+}
+
+.token-key {
+  color: #569cd6;
+}
+
+.token-string {
+  color: #d69d85;
+}
+
+.token-number {
+  color: #b5cea8;
+}
+
+.token-bracket {
+  color: #d4d4d4;
+}

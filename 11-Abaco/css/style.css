@@ -1,0 +1,115 @@
+body {
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 0;
+    }
+
+    #controls {
+	  display: flex;
+	  flex-direction: row;
+	  align-items: center;
+	  text-align: center;
+	  margin-bottom: 20px;
+	}
+
+	label, select, button {
+	  margin: 5px;
+	}
+	
+	#controlsA {
+		margin-left: -85px;
+	}
+
+
+    #abacus {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .rod {
+      position: relative;
+      width: 1200px;
+      height: 20px;
+      margin: 15px 0;
+      display: flex;
+      background-color: #8B4513;
+    }
+
+    .bead {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin: 0 5px;
+      cursor: pointer;
+      position: relative;
+      left: 0;
+      top: 50%;
+      transform: translate(0, -50%);
+      transition: left 0.3s ease;
+    }
+
+    .custom-value {
+      position: absolute;
+      left: 100%;
+      top: 50%;
+      transform: translate(0, -50%);
+      color: black;
+      font-size: 18px;
+    }
+
+    .number-container {
+      display: flex;
+      position: absolute;
+      bottom: -40px;
+      left: 0;
+      color: black;
+      font-size: 18px;
+    }
+
+    .number {
+      margin: 0 55px;
+    }
+
+    .rod:nth-child(10n+1) .bead {
+      background-color: #87CEEB;
+    }
+
+    .rod:nth-child(10n+2) .bead {
+      background-color: #FFD700;
+    }
+
+    .rod:nth-child(10n+3) .bead {
+      background-color: #FF4500;
+    }
+
+    .rod:nth-child(10n+4) .bead {
+      background-color: #32CD32;
+    }
+
+    .rod:nth-child(10n+5) .bead {
+      background-color: #9932CC;
+    }
+
+    .rod:nth-child(10n+6) .bead {
+      background-color: #FF8C00;
+    }
+
+    .rod:nth-child(10n+7) .bead {
+      background-color: #8A2BE2;
+    }
+
+    .rod:nth-child(10n+8) .bead {
+      background-color: #DC143C;
+    }
+
+    .rod:nth-child(10n+9) .bead {
+      background-color: #00BFFF;
+    }
+
+    .rod:nth-child(10n+10) .bead {
+      background-color: #FF1493;
+    }
