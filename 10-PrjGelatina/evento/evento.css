@@ -1,0 +1,68 @@
+@charset "utf-8";
+/*CSS Document*/
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	height: 100vh;
+	width: 100vw;
+	justify-content: center;
+}
+
+.btnVoltar {
+	position: fixed;
+	top: 10px;
+	left: 10px;
+	padding: 10px;
+	font-size: 2vw;
+	border-radius: 25px;
+	background-color: rgb(36, 147, 211);
+	border-style: solid;
+	border-color: rgb(0, 89, 255);
+}
+
+.btnVoltar:hover {
+	background-color: aqua;
+	border-style: none;
+}
+
+/* Animacao da Gelatina */
+.gelatina {
+	margin: auto;
+	width: 45vw;
+	height: 55vh;
+	display: flex;
+	justify-content: center;
+
+	/* A animacao sera executada com o JavaScript aqui */
+}
+
+.animar {
+	animation: gelatina 1s;
+}
+
+@keyframes gelatina {
+	0% {
+		transform: scale(1);
+	}
+
+	25% {
+		transform: scaleY(1.3) scaleX(0.8);
+	}
+
+	50% {
+		transform: scaleY(0.8) scaleX(1.2);
+	}
+
+	75% {
+		transform: scaleY(1.2) scaleX(0.8);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
